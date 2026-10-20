@@ -1,0 +1,24 @@
+---
+import { ArrowDown, ArrowUpRight, Code2, Layers3, Radio } from "lucide-react";
+import { copy as t } from "@/data/portfolioData";
+import Localized from "./Localized.astro";
+import NetworkTopology from "./NetworkTopology.astro";
+import Reveal from "./Reveal.astro";
+const icons = [Radio, Layers3, Code2];
+---
+<section id="statement" class="hero section-shell">
+  <div class="hero-status"><span class="micro"><i class="status-dot"></i><Localized value={t.available} /></span><span class="micro hero-index">PORTFOLIO / 2026</span></div>
+  <div class="hero-main">
+    <Reveal class="hero-copy">
+      <p class="eyebrow"><Localized value={t.eyebrow} /></p>
+      <h1><Localized value={t.hero} />{" "}<Localized value={t.heroAccent} class="hero-accent" /></h1>
+      <p class="hero-description"><Localized value={t.statement} /></p>
+      <a href="#engineering" class="primary-link"><Localized value={t.explore} /><ArrowUpRight size={17} /></a>
+    </Reveal>
+    <NetworkTopology />
+  </div>
+  <div class="pillars">
+    {t.pillars.map((pillar, i) => { const Icon = icons[i]; return <div class="pillar"><div class="pillar-top"><Icon size={19} strokeWidth={1.4} /><span class="micro">0{i + 1} / {pillar.code}</span></div><h2><Localized value={pillar.title} /></h2><p><Localized value={pillar.detail} /></p></div>; })}
+  </div>
+  <div class="hero-bottom micro"><Localized value={t.location} /><a href="#education"><Localized value={t.scroll} /><ArrowDown size={13} /></a></div>
+</section>

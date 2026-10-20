@@ -1,0 +1,12 @@
+---
+import { existsSync } from "node:fs";
+import path from "node:path";
+import type { Localized } from "@/data/portfolioData";
+interface Props { src: string; alt: Localized; class?: string }
+const { src, alt, class: className = "" } = Astro.props;
+const available = src.startsWith("/assets/") && !src.includes("..") && existsSync(path.join(process.cwd(), "public", src.slice(1)));
+---
+<div class:list={["asset-frame", className]}>
+  <slot />
+  {available && <img src={src} alt={alt.en} data-alt-en={alt.en} data-alt-id={alt.id} data-portfolio-asset class="asset-image" width="1600" height="1000" loading="lazy" decoding="async" />}
+</div>

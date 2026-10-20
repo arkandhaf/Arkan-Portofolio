@@ -1,0 +1,34 @@
+---
+import { ArrowDownRight } from "lucide-react";
+import { copy as t, projects, assets } from "@/data/portfolioData";
+import Reveal from "./Reveal.astro";
+import Localized from "./Localized.astro";
+import DashboardSchematic from "./DashboardSchematic.astro";
+import CliTerminalPreview from "./CliTerminalPreview";
+import AssetFrame from "./AssetFrame.astro";
+---
+<section id="engineering" class="section-shell content-section engineering-section">
+  <div class="section-kicker"><span class="micro">02 / <Localized value={t.engineering} /></span><span class="micro muted"><Localized value={t.selected} /></span></div>
+  <div class="section-heading-row"><Reveal><h2 class="section-title whitespace-pre-line"><Localized value={t.engineeringTitle} /></h2></Reveal><p><Localized value={t.engineeringSubtitle} /></p></div>
+  <div class="project-list">{projects.map((project, index) => <article class="project">
+    <div class="project-rail"><span class="project-number">{project.number}</span><span class="rail-line"></span><ArrowDownRight size={23} strokeWidth={1} /></div>
+    <div class="project-content"><Reveal>
+      <div class="project-meta micro"><span class="accent"><Localized value={project.category} /></span><Localized value={project.role} /></div>
+      <h3 class="project-title whitespace-pre-line"><Localized value={project.title} /></h3>
+      <p class="project-subtitle"><Localized value={project.subtitle} /></p><p class="project-description"><Localized value={project.description} /></p>
+      <div class="tags">{project.tags.map(tag => <span>{tag === "Optical telemetry" ? <Localized value={t.opticalTag} /> : tag}</span>)}</div>
+      {index === 0 && <DashboardSchematic />}
+      <div class="metrics-heading micro"><Localized value={t.metrics} /><span>↘</span></div>
+      <div class={`metrics-grid metrics-${project.metrics.length}`}>{project.metrics.map(metric => <div class="metric"><strong>{metric.value}</strong><Localized value={metric.label} /><p><Localized value={metric.detail} /></p></div>)}</div>
+      <div class="log-heading micro"><Localized value={t.technicalLog} /><span>[ {String(project.logs.length).padStart(2, "0")} ]</span></div>
+      <div class="log-scroll"><table class="log-table"><thead><tr><th><Localized value={t.capability} /></th><th><Localized value={t.implementation} /></th></tr></thead><tbody>{project.logs.map((log, i) => <tr><th scope="row"><span class="micro">{String(i + 1).padStart(2, "0")}</span><Localized value={log.title} /></th><td><Localized value={log.text} /></td></tr>)}</tbody></table></div>
+      {index === 2 && <>
+        <AssetFrame src={assets.experience} alt={t.photoCaption} class="field-frame operations-photo">
+          <div class="field-top micro"><span>IOH / MXC</span><Localized value={t.field} /></div>
+          <div class="field-caption"><span class="micro accent"><Localized value={t.photo} /></span><p><Localized value={t.photoCaption} /></p></div>
+        </AssetFrame>
+        <div id="telemetry"><CliTerminalPreview client:visible /></div>
+      </>}
+    </Reveal></div>
+  </article>)}</div>
+</section>

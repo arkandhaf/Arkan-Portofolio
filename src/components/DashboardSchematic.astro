@@ -1,0 +1,15 @@
+---
+import { ArrowRight, Check, Command, FileCode2, Workflow } from "lucide-react";
+import { copy as t, assets } from "@/data/portfolioData";
+import AssetFrame from "./AssetFrame.astro";
+import Localized from "./Localized.astro";
+---
+<AssetFrame src={assets.dashboard} alt={t.dashboard} class="dashboard-frame">
+  <div class="dashboard-top micro"><span><Command size={13} /><Localized value={t.dashboard} /></span><span class="accent">PYTHON / STREAMLIT</span></div>
+  <div class="dashboard-content">
+    <div class="dashboard-source"><FileCode2 size={23} strokeWidth={1.2} /><span>CIQ_INPUT.xlsx</span><span class="micro muted">APN / POLICY / HOST</span></div><ArrowRight size={22} className="flow-arrow" />
+    <div class="pipeline">{t.dashboardLabels.map((label, i) => <div><span class="micro">0{i + 1}</span><Localized value={label} /><Check size={13} /></div>)}</div>
+    <ArrowRight size={22} className="flow-arrow" /><div class="dashboard-output"><Workflow size={24} strokeWidth={1.2} /><span>deploy.zip</span><span class="micro accent">&lt; 5 SEC</span></div>
+  </div>
+  <div class="dashboard-bottom micro"><Localized value={t.dashboardNote} /><Localized value={t.artifact} /></div>
+</AssetFrame>

@@ -1,0 +1,14 @@
+---
+import type { Localized } from "@/data/portfolioData";
+interface Props {
+  value: Localized;
+  as?: "span" | "text";
+  class?: string;
+  x?: string;
+  y?: string;
+  "text-anchor"?: string;
+  fill?: string;
+}
+const { value, as: Tag = "span", ...attributes } = Astro.props;
+---
+<Tag data-en={value.en} data-id={value.id} {...attributes}>{value.en}</Tag>

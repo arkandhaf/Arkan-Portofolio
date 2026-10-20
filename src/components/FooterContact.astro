@@ -1,0 +1,16 @@
+---
+import { ArrowUp, ArrowUpRight, Code2, Camera, BriefcaseBusiness, Mail } from "lucide-react";
+import { copy as t, contacts } from "@/data/portfolioData";
+import Reveal from "./Reveal.astro";
+import Localized from "./Localized.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+const icons = [BriefcaseBusiness, Code2, Camera, Mail];
+const emailUrl = contacts.find(contact => contact.name === "Email")?.url ?? "#contact";
+---
+<footer id="contact" class="contact-section"><div class="section-shell">
+  <div class="section-kicker"><span class="micro">04 / <Localized value={t.contactLabel} /></span><span class="micro accent"><i class="status-dot"></i><Localized value={t.available} /></span></div>
+  <div class="contact-grid"><Reveal><h2 class="contact-title whitespace-pre-line"><Localized value={t.contactTitle} /></h2><p class="contact-description"><Localized value={t.contactText} /></p><a href={emailUrl} class="primary-link"><Localized value={t.sayHello} /><ArrowUpRight size={17} /></a></Reveal>
+    <div class="contact-links">{contacts.map((contact, index) => { const Icon = icons[index]; return <a href={contact.url} target={contact.name === "Email" ? undefined : "_blank"} rel={contact.name === "Email" ? undefined : "noopener noreferrer"}><Icon size={18} strokeWidth={1.4} /><span><strong>{contact.name}</strong><span>{contact.label}</span></span><ArrowUpRight size={18} /></a>; })}</div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Muhammad Arkan Dhaifullah <span>— <Localized value={t.footer} /></span></p><div><LanguageSwitcher /><a href="#statement" class="back-top" aria-label={t.top.en} data-aria-en={t.top.en} data-aria-id={t.top.id}><ArrowUp size={16} /></a></div></div>
+</div></footer>

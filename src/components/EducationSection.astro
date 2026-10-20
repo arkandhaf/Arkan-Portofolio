@@ -1,0 +1,22 @@
+---
+import { ArrowUpRight, MapPin } from "lucide-react";
+import { copy as t, assets } from "@/data/portfolioData";
+import Localized from "./Localized.astro";
+import Reveal from "./Reveal.astro";
+import AssetFrame from "./AssetFrame.astro";
+---
+<section id="education" class="section-shell content-section">
+  <div class="section-kicker"><span class="micro">01 / <Localized value={t.education.label} /></span><span class="micro muted"><Localized value={t.foundation} /></span></div>
+  <Reveal><h2 class="section-title whitespace-pre-line"><Localized value={t.education.title} /></h2></Reveal>
+  <div class="education-grid">
+    <Reveal class="institution-card">
+      <div class="institution-top"><span class="itb-badge">ITB<span>1920</span></span><span class="micro"><Localized value={t.education.institute} /></span><ArrowUpRight size={18} className="muted" /></div>
+      <h3>Institut Teknologi Bandung</h3><p class="degree"><Localized value={t.education.degree} /></p><p class="location"><MapPin size={13} /><Localized value={t.education.place} /></p>
+      <p class="body-copy"><Localized value={t.education.narrative} /></p><div class="institution-foot micro"><span class="status-dot"></span><Localized value={t.education.foot} /></div>
+    </Reveal>
+    <AssetFrame src={assets.education} alt={t.campusCaption} class="field-frame">
+      <div class="wireframe-building" aria-hidden="true"><svg viewBox="0 0 400 200"><g fill="none" stroke="currentColor" stroke-width="0.7"><path d="m65 160 135-70 135 70-135 70ZM65 160V65l135-50 135 50v95M200 15v215M65 65l135 68 135-68M65 90l135 68 135-68M65 115l135 68 135-68M65 140l135 68 135-68M99 78v100M133 99v100M167 116v100M234 115v100M268 98v100M302 81v100" /></g></svg></div>
+      <div class="field-top micro"><span>ITB / BANDUNG</span></div><div class="field-caption"><span class="micro accent"><Localized value={t.campusPhoto} /></span><p>Institut Teknologi Bandung</p></div>
+    </AssetFrame>
+  </div>
+</section>

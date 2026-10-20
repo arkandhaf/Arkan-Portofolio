@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/Navbar.astro";
+import HeroStatement from "@/components/HeroStatement.astro";
+import MarqueeTicker from "@/components/MarqueeTicker.astro";
+import EducationSection from "@/components/EducationSection.astro";
+import EngineeringSection from "@/components/EngineeringSection.astro";
+import CredentialsSection from "@/components/CredentialsSection.astro";
+import FooterContact from "@/components/FooterContact.astro";
+---
+<BaseLayout>
+  <Navbar />
+  <main id="main">
+    <HeroStatement />
+    <MarqueeTicker />
+    <EducationSection />
+    <EngineeringSection />
+    <CredentialsSection />
+  </main>
+  <FooterContact />
+</BaseLayout>

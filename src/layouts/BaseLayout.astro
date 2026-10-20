@@ -1,0 +1,82 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "@/styles/globals.css";
+const title = {
+  en: "Muhammad Arkan Dhaifullah — Network & Core Automation",
+  id: "Muhammad Arkan Dhaifullah — Otomasi Jaringan & Core",
+};
+const description = {
+  en: "Bridging physical optical networks, carrier core architecture, and intelligent automation. Selected engineering work by Muhammad Arkan Dhaifullah.",
+  id: "Menghubungkan jaringan optik fisik, arsitektur core operator, dan otomasi cerdas. Karya rekayasa pilihan Muhammad Arkan Dhaifullah.",
+};
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title data-en={title.en} data-id={title.id}>{title.en}</title>
+    <meta name="description" content={description.en} data-meta-en={description.en} data-meta-id={description.id} />
+    <meta name="application-name" content="Arkan — Engineering Portfolio" />
+    <meta name="keywords" content="Muhammad Arkan Dhaifullah, Network Automation, Core Network, Python, ITB, RELPOOL" />
+    <meta property="og:title" content={title.en} data-meta-en={title.en} data-meta-id={title.id} />
+    <meta property="og:description" content={description.en} data-meta-en={description.en} data-meta-id={description.id} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="id_ID" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title.en} data-meta-en={title.en} data-meta-id={title.id} />
+    <meta name="twitter:description" content={description.en} data-meta-en={description.en} data-meta-id={description.id} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("arkan-theme") === "light" ? "light" : "dark";
+      } catch { /* Keep the default before styles load. */ }
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import { initializePortfolio } from "@/scripts/portfolio";
+      import { initializeMotion } from "@/scripts/animations";
+      let mountedBody: HTMLElement | undefined;
+      let stopUI: (() => void) | undefined;
+      let stopMotion: (() => void) | undefined;
+
+      function teardown() {
+        stopMotion?.();
+        stopUI?.();
+        stopMotion = undefined;
+        stopUI = undefined;
+        mountedBody = undefined;
+      }
+
+      function mount() {
+        if (mountedBody === document.body) return;
+        teardown();
+        mountedBody = document.body;
+        stopUI = initializePortfolio();
+        try {
+          stopMotion = initializeMotion();
+        } catch (error) {
+          console.warn("Portfolio animations could not load; static content remains available.", error);
+        }
+      }
+
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount, { once: true });
+      else mount();
+      document.addEventListener("astro:page-load", mount);
+      document.addEventListener("astro:before-swap", teardown);
+      if (import.meta.hot) {
+        import.meta.hot.dispose(() => {
+          teardown();
+          document.removeEventListener("astro:page-load", mount);
+          document.removeEventListener("DOMContentLoaded", mount);
+          document.removeEventListener("astro:before-swap", teardown);
+        });
+      }
+    </script>
+  </body>
+</html>

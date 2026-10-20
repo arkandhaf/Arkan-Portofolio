@@ -1,0 +1,29 @@
+---
+import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
+import { copy as t } from "@/data/portfolioData";
+import Localized from "./Localized.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+const ids = ["statement", "education", "engineering", "telemetry", "contact"];
+---
+<a class="skip-link" href="#main"><Localized value={t.skip} /></a>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="#statement" class="brand" aria-label="Arkan — home" data-aria-en="Arkan — home" data-aria-id="Arkan — beranda">
+      <span class="monogram">A<span>.</span></span>
+      <span class="brand-copy">ARKAN<Localized value={t.brand} /></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation" data-aria-en="Main navigation" data-aria-id="Navigasi utama">
+      {ids.map((id, i) => <a href={`#${id}`} data-nav={id} class:list={[{ active: i === 0 }]} aria-current={i === 0 ? "location" : undefined}><Localized value={t.nav[i]} />{id === "contact" && <ArrowUpRight size={12} />}</a>)}
+    </nav>
+    <div class="nav-controls">
+      <button type="button" class="icon-button theme-toggle" data-theme-toggle aria-label={t.light.en} data-light-en={t.light.en} data-light-id={t.light.id} data-dark-en={t.dark.en} data-dark-id={t.dark.id}>
+        <span class="theme-sun"><Sun size={15} /></span><span class="theme-moon"><Moon size={15} /></span>
+      </button>
+      <LanguageSwitcher />
+      <button type="button" class="icon-button mobile-menu-button" data-menu-toggle aria-label={t.menu.en} data-aria-en={t.menu.en} data-aria-id={t.menu.id} aria-expanded="false" aria-controls="mobile-nav"><span class="menu-open-icon"><Menu size={20} /></span><span class="menu-close-icon"><X size={20} /></span></button>
+    </div>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" hidden aria-label="Mobile navigation" data-aria-en="Mobile navigation" data-aria-id="Navigasi seluler">
+    {ids.map((id, i) => <a href={`#${id}`}><span>0{i + 1}</span><Localized value={t.nav[i]} /><ArrowUpRight size={16} /></a>)}
+  </nav>
+</header>
